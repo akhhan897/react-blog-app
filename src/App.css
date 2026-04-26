@@ -1,0 +1,213 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
+
+.light {
+  background-color: #f8f9fb;
+  color: #111827;
+  min-height: 100vh;
+}
+
+.dark {
+  background-color: #111827;
+  color: #f9fafb;
+  min-height: 100vh;
+}
+
+.app-wrapper {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.main-content {
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 24px 16px;
+  flex: 1;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 24px;
+  border-bottom: 1px solid #d1d5db;
+}
+
+.light .navbar {
+  background-color: #ffffff;
+}
+
+.dark .navbar {
+  background-color: #1f2937;
+  border-bottom: 1px solid #374151;
+}
+
+.nav-links {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.nav-links a {
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.light a {
+  color: #2563eb;
+}
+
+.dark a {
+  color: #93c5fd;
+}
+
+.theme-btn,
+.contact-form button {
+  border: none;
+  padding: 10px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.light .theme-btn,
+.light .contact-form button {
+  background-color: #2563eb;
+  color: white;
+}
+
+.dark .theme-btn,
+.dark .contact-form button {
+  background-color: #f9fafb;
+  color: #111827;
+}
+
+.page-title {
+  margin-bottom: 24px;
+}
+
+.post-list {
+  display: grid;
+  gap: 20px;
+}
+
+.post-card,
+.single-post,
+.comment-box,
+.contact-form {
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.light .post-card,
+.light .single-post,
+.light .comment-box,
+.light .contact-form {
+  background-color: #ffffff;
+}
+
+.dark .post-card,
+.dark .single-post,
+.dark .comment-box,
+.dark .contact-form {
+  background-color: #1f2937;
+}
+
+.post-card h3,
+.single-post h2 {
+  margin-top: 0;
+}
+
+.read-more,
+.back-link {
+  display: inline-block;
+  margin-top: 10px;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.comment-form {
+  margin-top: 24px;
+}
+
+.comment-form input,
+.comment-form textarea,
+.contact-form input,
+.contact-form textarea {
+  width: 100%;
+  padding: 12px;
+  margin-top: 6px;
+  margin-bottom: 16px;
+  border-radius: 8px;
+  border: 1px solid #cbd5e1;
+  font-size: 16px;
+}
+
+.dark .comment-form input,
+.dark .comment-form textarea,
+.dark .contact-form input,
+.dark .contact-form textarea {
+  background-color: #111827;
+  color: white;
+  border: 1px solid #4b5563;
+}
+
+.comments-section {
+  margin-top: 28px;
+}
+
+.comment-box {
+  margin-top: 12px;
+}
+
+.comment-box h4 {
+  margin: 0 0 8px 0;
+}
+
+.footer {
+  text-align: center;
+  padding: 20px;
+  border-top: 1px solid #d1d5db;
+}
+
+.light .footer {
+  background-color: #ffffff;
+}
+
+.dark .footer {
+  background-color: #1f2937;
+  border-top: 1px solid #374151;
+}
+
+@media (max-width: 768px) {
+  .navbar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .main-content {
+    padding: 20px 12px;
+  }
+
+  .post-card,
+  .single-post,
+  .comment-box,
+  .contact-form {
+    padding: 16px;
+  }
+
+  .theme-btn,
+  .contact-form button {
+    width: 100%;
+  }
+}
