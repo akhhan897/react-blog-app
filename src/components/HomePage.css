@@ -28,3 +28,31 @@
   background-color: #4f46e5;
   color: white;
 }
+
+.home-buttons .home-btn.primary {
+  background: linear-gradient(135deg, #4f46e5, #6366f1);
+  color: white !important;
+  border: 2px solid #4f46e5;
+}
+
+.home-buttons .home-btn.primary:visited {
+  color: white !important;
+}
+
+.home-buttons .home-btn.primary:hover {
+  color: white !important;
+  background: linear-gradient(135deg, #4338ca, #4f46e5);
+}
+
+.home-buttons .home-btn.secondary {
+  color: #2563eb !important;
+}
+
+.home-buttons .home-btn.secondary:visited {
+  color: #2563eb !important;
+}
+
+.home-buttons .home-btn.secondary:hover {
+  background-color: #4f46e5;
+  color: white !important;
+}
