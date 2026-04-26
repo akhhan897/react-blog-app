@@ -16,9 +16,13 @@ function HomePage() {
         </p>
 
         <div className="home-buttons">
-          {!isAuthenticated && (
+          {!isAuthenticated ? (
             <Link to="/login" className="home-btn primary">
               Login
+            </Link>
+          ) : (
+            <Link to="/blog" className="home-btn primary">
+              Go to Blog
             </Link>
           )}
 
