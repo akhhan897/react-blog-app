@@ -2,10 +2,12 @@ import { useParams, Link } from "react-router-dom";
 import { useState } from "react";
 import blogPosts from "../data/blogdata";
 import CommentForm from "./CommentForm";
+import { useAuth } from "../context/AuthContext";
 
 function IndividualPostPage() {
   const { id } = useParams();
   const post = blogPosts.find((post) => post.id === parseInt(id));
+  const { isAuthenticated } = useAuth();
 
   const [comments, setComments] = useState([]);
 
@@ -13,7 +15,7 @@ function IndividualPostPage() {
     return (
       <div className="single-post">
         <h2>Post Not Found</h2>
-        <Link className="back-link" to="/">
+        <Link className="back-link" to="/blog">
           Back to Blog Posts
         </Link>
       </div>
@@ -25,9 +27,15 @@ function IndividualPostPage() {
       <h2>{post.title}</h2>
       <p>{post.content}</p>
 
-      <div className="comment-form">
-        <CommentForm comments={comments} setComments={setComments} />
-      </div>
+      {isAuthenticated ? (
+        <div className="comment-form">
+          <CommentForm comments={comments} setComments={setComments} />
+        </div>
+      ) : (
+        <p className="login-message">
+          Please log in to leave a comment.
+        </p>
+      )}
 
       <div className="comments-section">
         <h3>Comments</h3>
@@ -44,7 +52,7 @@ function IndividualPostPage() {
         )}
       </div>
 
-      <Link className="back-link" to="/">
+      <Link className="back-link" to="/blog">
         Back to Blog Posts
       </Link>
     </div>
