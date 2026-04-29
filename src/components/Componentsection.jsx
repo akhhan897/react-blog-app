@@ -1,66 +1,40 @@
 import { useState } from "react";
 import { useAuth } from "../context/AuthContext";
 
-function CommentSection() {
-  const [comment, setComment] = useState("");
-  const { isAuthenticated, user } = useAuth();
+function CommentForm({ comments, setComments }) {
+  const [text, setText] = useState("");
+  const { user } = useAuth();
 
-  const [comments, setComments] = useState([
-    { text: "Comment 1", user: "Guest" },
-    { text: "Comment 2", user: "Guest" },
-    { text: "Comment 3", user: "Guest" },
-  ]);
+  const handleSubmit = (e) => {
+    e.preventDefault();
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-
-    if (comment.trim() === "") return;
+    if (text.trim() === "") return;
 
     const newComment = {
-      text: comment,
-      user: user?.username || "Guest",
+      id: Date.now(),
+      name: user.username, 
+      text: text,
     };
 
     setComments([...comments, newComment]);
-    setComment("");
+    setText("");
   };
 
   return (
-    <section className="comment-section">
-      <h3>Comments</h3>
+    <form onSubmit={handleSubmit}>
+      <p>
+        Commenting as: <strong>{user?.username}</strong>
+      </p>
 
-      {isAuthenticated ? (
-        <>
-          <p>
-            Commenting as: <strong>{user?.username}</strong>
-          </p>
+      <textarea
+        placeholder="Add a comment"
+        value={text}
+        onChange={(e) => setText(e.target.value)}
+      ></textarea>
 
-          <form onSubmit={handleSubmit}>
-            <textarea
-              placeholder="Add a comment"
-              value={comment}
-              onChange={(event) => setComment(event.target.value)}
-            ></textarea>
-
-            <button type="submit">Submit</button>
-          </form>
-        </>
-      ) : (
-        <p>Please log in to leave a comment.</p>
-      )}
-
-      <div className="existing-comments">
-        <h4>Existing Comments:</h4>
-        <ul>
-          {comments.map((item, index) => (
-            <li key={index}>
-              <strong>{item.user}:</strong> {item.text}
-            </li>
-          ))}
-        </ul>
-      </div>
-    </section>
+      <button type="submit">Submit</button>
+    </form>
   );
 }
 
-export default CommentSection;
+export default CommentForm;
