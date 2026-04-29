@@ -7,7 +7,6 @@ function CommentForm({ comments, setComments }) {
   const [name, setName] = useState("");
   const [text, setText] = useState("");
 
-  // 🔥 THIS is the fix
   useEffect(() => {
     if (user?.username) {
       setName(user.username);
@@ -25,21 +24,24 @@ function CommentForm({ comments, setComments }) {
       text: text,
     };
 
-    setComments((prev) => [...prev, newComment]);
+    setComments([...comments, newComment]);
     setText("");
   };
 
   return (
     <form onSubmit={handleSubmit}>
-      <label>Name</label>
+      <h3>Leave a Comment</h3>
+
+      <label>Name:</label>
       <input
         type="text"
         value={name}
         readOnly
       />
 
+      <label>Comment:</label>
       <textarea
-        placeholder="Add a comment"
+        placeholder="Enter your comment"
         value={text}
         onChange={(e) => setText(e.target.value)}
       ></textarea>
