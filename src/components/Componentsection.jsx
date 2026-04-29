@@ -1,9 +1,18 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useAuth } from "../context/AuthContext";
 
 function CommentForm({ comments, setComments }) {
-  const [text, setText] = useState("");
   const { user } = useAuth();
+
+  const [name, setName] = useState("");
+  const [text, setText] = useState("");
+
+  // 🔥 THIS is the fix
+  useEffect(() => {
+    if (user?.username) {
+      setName(user.username);
+    }
+  }, [user]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -12,19 +21,22 @@ function CommentForm({ comments, setComments }) {
 
     const newComment = {
       id: Date.now(),
-      name: user.username, 
+      name: name,
       text: text,
     };
 
-    setComments([...comments, newComment]);
+    setComments((prev) => [...prev, newComment]);
     setText("");
   };
 
   return (
     <form onSubmit={handleSubmit}>
-      <p>
-        Commenting as: <strong>{user?.username}</strong>
-      </p>
+      <label>Name</label>
+      <input
+        type="text"
+        value={name}
+        readOnly
+      />
 
       <textarea
         placeholder="Add a comment"
