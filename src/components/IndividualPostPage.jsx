@@ -7,7 +7,7 @@ import { useAuth } from "../context/AuthContext";
 function IndividualPostPage() {
   const { id } = useParams();
   const post = blogPosts.find((post) => post.id === parseInt(id));
-  const { isAuthenticated } = useAuth();
+  const { isAuthenticated, user } = useAuth();
 
   const [comments, setComments] = useState([]);
 
@@ -29,7 +29,11 @@ function IndividualPostPage() {
 
       {isAuthenticated ? (
         <div className="comment-form">
-          <CommentForm comments={comments} setComments={setComments} />
+          <CommentForm
+            comments={comments}
+            setComments={setComments}
+            username={user?.username || ""}
+          />
         </div>
       ) : (
         <p className="login-message">

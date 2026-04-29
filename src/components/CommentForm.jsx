@@ -1,47 +1,46 @@
 import { useState } from "react";
-import { useAuth } from "../context/AuthContext";
 
-function CommentForm({ comments, setComments }) {
-  const [text, setText] = useState("");
-  const { user } = useAuth();
+function CommentForm({ comments, setComments, username }) {
+  const [comment, setComment] = useState("");
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const handleSubmit = (event) => {
+    event.preventDefault();
 
-    if (text.trim() === "") return;
+    if (comment.trim() === "") return;
 
     const newComment = {
       id: Date.now(),
-      name: user?.username || "Guest",
-      text: text,
+      name: username,
+      text: comment,
     };
 
-    setComments([...comments, newComment]);
-    setText("");
+    setComments((prev) => [...prev, newComment]);
+    setComment("");
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <div>
       <h3>Leave a Comment</h3>
 
-      <p>DEBUG USER: {user?.username || "No user found"}</p>
+      <form onSubmit={handleSubmit}>
+        <label>Name:</label>
+        <input
+          type="text"
+          value={username}
+          readOnly
+        />
 
-      <label>Name:</label>
-      <input
-        type="text"
-        value={user?.username || ""}
-        readOnly
-      />
+        <label>Comment:</label>
+        <textarea
+          value={comment}
+          onChange={(event) => setComment(event.target.value)}
+          placeholder="Enter your comment"
+          rows="4"
+        ></textarea>
 
-      <label>Comment:</label>
-      <textarea
-        placeholder="Enter your comment"
-        value={text}
-        onChange={(e) => setText(e.target.value)}
-      ></textarea>
-
-      <button type="submit">Submit</button>
-    </form>
+        <button type="submit">Submit</button>
+      </form>
+    </div>
   );
 }
 
