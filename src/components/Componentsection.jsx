@@ -1,17 +1,9 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useAuth } from "../context/AuthContext";
 
 function CommentForm({ comments, setComments }) {
-  const { user } = useAuth();
-
-  const [name, setName] = useState("");
   const [text, setText] = useState("");
-
-  useEffect(() => {
-    if (user?.username) {
-      setName(user.username);
-    }
-  }, [user]);
+  const { user } = useAuth();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -20,7 +12,7 @@ function CommentForm({ comments, setComments }) {
 
     const newComment = {
       id: Date.now(),
-      name: name,
+      name: user?.username || "Guest",
       text: text,
     };
 
@@ -32,10 +24,12 @@ function CommentForm({ comments, setComments }) {
     <form onSubmit={handleSubmit}>
       <h3>Leave a Comment</h3>
 
+      <p>DEBUG USER: {user?.username || "No user found"}</p>
+
       <label>Name:</label>
       <input
         type="text"
-        value={name}
+        value={user?.username || ""}
         readOnly
       />
 
