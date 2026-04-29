@@ -3,13 +3,23 @@ import { useAuth } from "../context/AuthContext";
 
 function CommentSection() {
   const [comment, setComment] = useState("");
-  const { isAuthenticated } = useAuth();
+  const { isAuthenticated, user } = useAuth();
 
-  const staticComments = ["Comment 1", "Comment 2", "Comment 3"];
+  const [comments, setComments] = useState([
+    { text: "Comment 1", user: "Guest" },
+    { text: "Comment 2", user: "Guest" },
+    { text: "Comment 3", user: "Guest" },
+  ]);
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    alert(`Submitted comment: ${comment}`);
+
+    const newComment = {
+      text: comment,
+      user: user.username,
+    };
+
+    setComments([...comments, newComment]);
     setComment("");
   };
 
@@ -34,8 +44,10 @@ function CommentSection() {
       <div className="existing-comments">
         <h4>Existing Comments:</h4>
         <ul>
-          {staticComments.map((item, index) => (
-            <li key={index}>{item}</li>
+          {comments.map((item, index) => (
+            <li key={index}>
+              <strong>{item.user}:</strong> {item.text}
+            </li>
           ))}
         </ul>
       </div>
