@@ -14,9 +14,11 @@ function CommentSection() {
   const handleSubmit = (event) => {
     event.preventDefault();
 
+    if (comment.trim() === "") return;
+
     const newComment = {
       text: comment,
-      user: user.username,
+      user: user?.username || "Guest",
     };
 
     setComments([...comments, newComment]);
@@ -28,15 +30,21 @@ function CommentSection() {
       <h3>Comments</h3>
 
       {isAuthenticated ? (
-        <form onSubmit={handleSubmit}>
-          <textarea
-            placeholder="Add a comment"
-            value={comment}
-            onChange={(event) => setComment(event.target.value)}
-          ></textarea>
+        <>
+          <p>
+            Commenting as: <strong>{user?.username}</strong>
+          </p>
 
-          <button type="submit">Submit</button>
-        </form>
+          <form onSubmit={handleSubmit}>
+            <textarea
+              placeholder="Add a comment"
+              value={comment}
+              onChange={(event) => setComment(event.target.value)}
+            ></textarea>
+
+            <button type="submit">Submit</button>
+          </form>
+        </>
       ) : (
         <p>Please log in to leave a comment.</p>
       )}
